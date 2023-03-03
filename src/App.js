@@ -21,16 +21,18 @@ function App() {
     <div className="App">
       {/* First container */}
       <Container>
-        <Row className="mt-5">
+        <Row className="mt-2">
           <Col md={4} class="border m-2">
-            <img src={logo} alt="logo" className="main-logo" />
+            <div className="div-main-logo">
+              <img src={logo} alt="logo" className="main-logo" />
+            </div>
           </Col>
           <Col md={6}></Col>
         </Row>
       </Container>
       {/* Second Container */}
       <Container>
-        <Row className="mt-5">
+        <Row className="mt-2">
           <Col md={6}>
             <Container>
               <h1 className="heading-main">Awake Genius!</h1>
@@ -41,16 +43,21 @@ function App() {
               </h5>
             </Container>
             <Container>
-              <div className="d-flex m-2 mt-5">
-                <img src={search} alt="" onClick={toggleDiv} />
+              <div className="d-flex mb-3 mt-5 align-items-center">
+                <img
+                  src={search}
+                  alt=""
+                  onClick={toggleDiv}
+                  className="search-icon"
+                />
                 <input
                   type="text"
                   className="img-search"
                   placeholder="Enter your question"
                 />
               </div>
-              <div className="d-flex">
-                <img src={microphone} alt="" />
+              <div className="d-flex align-items-center">
+                <img src={microphone} alt="" className="microphone-icon" />
                 <input
                   type="text"
                   placeholder="Press the microphone button when you're ready."
@@ -64,8 +71,10 @@ function App() {
               )}
             </Container>
           </Col>
-          <Col md={6} class="border">
-            <img src={girlImg} alt="logo" />
+          <Col md={6}>
+            <div className="bg-img-div">
+              <img src={girlImg} alt="logo" className="girl-img" />
+            </div>
           </Col>
         </Row>
       </Container>
@@ -94,13 +103,13 @@ function App() {
           </div>
         </div>
         <Container>
-          <div className="d-flex align-item-center justify-space-between mt5 bottom-navbar-div">
+          <div className="d-flex align-item-center justify-space-between  bottom-navbar-div">
             <Col md={2} className="">
               <img src={logo2} alt="" />
             </Col>
             <Col md={4} className=""></Col>
             <Col md={6} className="mt-2">
-              <div className="d-flex">
+              <div className="">
                 <ul className="d-flex">
                   <li className="list-none">Home</li>
                   <li className="list-none">Service</li>
