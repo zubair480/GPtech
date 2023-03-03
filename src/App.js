@@ -11,12 +11,30 @@ import logo2 from "./assets/logo 2.svg";
 import zigzag from "./assets/zigzag line.png";
 import circles from "./assets/circles.png";
 
+import axios from "axios";
+
 function App() {
   const [showDiv, setShowDiv] = useState(false);
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
   };
+
+  const [userName, createUser] = useState("");
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const post = { query: data };
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/query", post, {
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(res.data);
+    } catch (e) {
+      alert(e);
+    }
+  };
+  const answer = res.answers[0].answer;
+
   return (
     <div className="App">
       {/* First container */}
@@ -42,6 +60,27 @@ function App() {
                 your question and get the answers you need.
               </h5>
             </Container>
+            {/* <p>{answer}</p> */}
+            {/* Dummy code
+            <div className="container mt-2">
+              <h2>React HTTP Post Request Example</h2>
+              <form onSubmit={onSubmit}>
+                <div className="mb-2 mt-3">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    className="form-control"
+                    onChange={(event) => {
+                      createUser(event.target.value);
+                    }}
+                    value={data}
+                  />
+                </div>
+                <button type="submit" className="btn btn-danger">
+                  Create
+                </button>
+              </form>
+            </div> */}
             <Container>
               <div className="d-flex mb-3 mt-5 align-items-center">
                 <img
@@ -56,17 +95,17 @@ function App() {
                   placeholder="Enter your question"
                 />
               </div>
-              <div className="d-flex align-items-center">
+              {/* <div className="d-flex align-items-center">
                 <img src={microphone} alt="" className="microphone-icon" />
                 <input
                   type="text"
                   placeholder="Press the microphone button when you're ready."
                   className="img-search"
                 />
-              </div>
+              </div> */}
               {showDiv && (
                 <div className="response-div">
-                  <p className="response-div-p">Response</p>
+                  <p className="response-div-p">{answer}</p>
                 </div>
               )}
             </Container>
