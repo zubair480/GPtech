@@ -26,11 +26,15 @@ function App() {
     e.preventDefault();
     const post = { query: data };
     try {
-      const res = await axios.post("http://127.0.0.1:8000/query", post, {
-        headers: { "Content-Type": "application/json" },
-      });
-      var answer = res.answers[0].answer;
+      const res = await axios.post(
+        "http://127.0.0.1:8000/query",
+        { query: "Climate in poland" },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       console.log(res.data);
+      // var answer = res.answers[0].answer;
     } catch (e) {
       alert(e);
     }
@@ -96,7 +100,7 @@ function App() {
                   />
                   <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Enter your question here"
                     className="form-control"
                     onChange={(event) => {
                       changedata(event.target.value);
