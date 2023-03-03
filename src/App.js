@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
@@ -11,12 +12,17 @@ import zigzag from "./assets/zigzag line.png";
 import circles from "./assets/circles.png";
 
 function App() {
+  const [showDiv, setShowDiv] = useState(false);
+
+  const toggleDiv = () => {
+    setShowDiv(!showDiv);
+  };
   return (
     <div className="App">
       {/* First container */}
       <Container>
         <Row className="mt-5">
-          <Col md={4} class="border">
+          <Col md={4} class="border m-2">
             <img src={logo} alt="logo" />
           </Col>
           <Col md={6}></Col>
@@ -36,7 +42,7 @@ function App() {
             </Container>
             <Container>
               <div className="d-flex m-2 mt-5">
-                <img src={search} alt="" />
+                <img src={search} alt="" onClick={toggleDiv} />
                 <input
                   type="text"
                   className="img-search"
@@ -51,6 +57,11 @@ function App() {
                   className="img-search"
                 />
               </div>
+              {showDiv && (
+                <div className="response-div">
+                  <p className="response-div-p">Response</p>
+                </div>
+              )}
             </Container>
           </Col>
           <Col md={6} class="border">

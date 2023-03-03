@@ -66,7 +66,7 @@ code {
 }
 .container-two {
   background: #10093a;
-  padding: 40px;
+  padding: 60px;
 }
 .list-none {
   list-style: none;
@@ -143,5 +143,26 @@ code {
   right: -306px;
 }
 .bottom-navbar-div {
-  margin-top: 30px;
+  margin-top: 50px;
+}
+.response-div {
+  margin-top: 50px;
+  width: 1260px;
+  height: 516px;
+  left: 103px;
+  top: 785px;
+
+  background: #f1f1f1;
+  border-radius: 28px;
+  padding: 20px;
+}
+.response-div-p {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 45px;
+  /* or 150% */
+
+  color: #726363;
 }
