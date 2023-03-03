@@ -16,32 +16,13 @@ import axios from "axios";
 function App() {
   const [showDiv, setShowDiv] = useState(false);
 
-  // const toggleDiv = () => {
-  //   setShowDiv(!showDiv);
-  // };
-
-  // const [data, changedata] = useState("");
-  // const [answer, setAnswer] = useState("");
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const post = { query: data };
-  //   try {
-  //     const res = await axios.post(
-  //       "https://navitutor.com/query",
-  //       { query: post },
-  //       {
-  //         headers: { "Content-Type": "application/json" },
-  //       }
-  //     );
-  //     console.log(res.data);
-  //     // var answer = res.answers[0].answer;
-  //   } catch (e) {
-  //     alert(e);
-  //   }
-  // };
+  const toggleDiv = () => {
+    setShowDiv(!showDiv);
+  };
 
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (event) => {
     setInput(event.target.value);
@@ -50,6 +31,7 @@ function App() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(
         "https://navitutor.com/query",
         { query: input },
@@ -60,9 +42,14 @@ function App() {
       var answer = response.data.answers[0].answer;
       setResponse(answer);
       console.log(answer);
+      if (answer) {
+        toggleDiv();
+      }
+      setLoading(false);
     } catch (error) {
       console.error(error); // handle error
       setResponse("Temporary OpenAI outage, Please try again shortly.");
+      setLoading(false);
     }
   };
 
@@ -121,7 +108,7 @@ function App() {
                   </button>
                   <input
                     type="text"
-                    placeholder="Enter your question here"
+                    placeholder="Explain back propagation to me"
                     className="img-search"
                     value={input}
                     onChange={handleInputChange}
@@ -137,10 +124,12 @@ function App() {
                   className="img-search"
                 />
               </div> */}
-
-              <div className="response-div">
-                <p className="response-div-p">{response}</p>
-              </div>
+              {loading ? <p>Loading...</p> : response && <p>Data loaded </p>}
+              {showDiv && (
+                <div className="response-div">
+                  <p className="response-div-p">{response}</p>
+                </div>
+              )}
             </Container>
           </Col>
           <Col md={6}>
