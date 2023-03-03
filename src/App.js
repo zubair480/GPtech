@@ -20,7 +20,8 @@ function App() {
     setShowDiv(!showDiv);
   };
 
-  const [userName, createUser] = useState("");
+  const [data, changedata] = useState("");
+  const [answer, setAnswer] = useState("");
   const onSubmit = async (e) => {
     e.preventDefault();
     const post = { query: data };
@@ -28,12 +29,12 @@ function App() {
       const res = await axios.post("http://127.0.0.1:8000/query", post, {
         headers: { "Content-Type": "application/json" },
       });
+      var answer = res.answers[0].answer;
       console.log(res.data);
     } catch (e) {
       alert(e);
     }
   };
-  const answer = res.answers[0].answer;
 
   return (
     <div className="App">
@@ -82,19 +83,28 @@ function App() {
               </form>
             </div> */}
             <Container>
-              <div className="d-flex mb-3 mt-5 align-items-center">
-                <img
-                  src={search}
-                  alt=""
-                  onClick={toggleDiv}
-                  className="search-icon"
-                />
-                <input
-                  type="text"
-                  className="img-search"
-                  placeholder="Enter your question"
-                />
-              </div>
+              <form onSubmit={onSubmit}>
+                <div className="d-flex mb-3 mt-5 align-items-center">
+                  <img
+                    src={search}
+                    alt=""
+                    onClick={() => {
+                      toggleDiv();
+                      onSubmit();
+                    }}
+                    className="search-icon"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    className="form-control"
+                    onChange={(event) => {
+                      changedata(event.target.value);
+                    }}
+                    value={data}
+                  />
+                </div>
+              </form>
               {/* <div className="d-flex align-items-center">
                 <img src={microphone} alt="" className="microphone-icon" />
                 <input
