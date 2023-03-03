@@ -23,7 +23,7 @@ function App() {
       <Container>
         <Row className="mt-5">
           <Col md={4} class="border m-2">
-            <img src={logo} alt="logo" />
+            <img src={logo} alt="logo" className="main-logo" />
           </Col>
           <Col md={6}></Col>
         </Row>
