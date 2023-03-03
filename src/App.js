@@ -1,12 +1,12 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import logo from "./assets/logo.svg";
 import girlImg from "./assets/image of girl.jpg";
 import search from "./assets/search icon.svg";
-import microphone from "./assets/microphone.svg";
+// import microphone from "./assets/microphone.svg";
 import logo2 from "./assets/logo 2.svg";
 import zigzag from "./assets/zigzag line.png";
 import circles from "./assets/circles.png";
@@ -16,27 +16,53 @@ import axios from "axios";
 function App() {
   const [showDiv, setShowDiv] = useState(false);
 
-  const toggleDiv = () => {
-    setShowDiv(!showDiv);
+  // const toggleDiv = () => {
+  //   setShowDiv(!showDiv);
+  // };
+
+  // const [data, changedata] = useState("");
+  // const [answer, setAnswer] = useState("");
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const post = { query: data };
+  //   try {
+  //     const res = await axios.post(
+  //       "https://navitutor.com/query",
+  //       { query: post },
+  //       {
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
+  //     console.log(res.data);
+  //     // var answer = res.answers[0].answer;
+  //   } catch (e) {
+  //     alert(e);
+  //   }
+  // };
+
+  const [input, setInput] = useState("");
+  const [response, setResponse] = useState("");
+
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
   };
 
-  const [data, changedata] = useState("");
-  const [answer, setAnswer] = useState("");
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const post = { query: data };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const res = await axios.post(
-        "http://127.0.0.1:8000/query",
-        { query: "Climate in poland" },
+      const response = await axios.post(
+        "https://navitutor.com/query",
+        { query: input },
         {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log(res.data);
-      // var answer = res.answers[0].answer;
-    } catch (e) {
-      alert(e);
+      var answer = response.data.answers[0].answer;
+      setResponse(answer);
+      console.log(answer);
+    } catch (error) {
+      console.error(error); // handle error
+      setResponse("Temporary OpenAI outage, Please try again shortly.");
     }
   };
 
@@ -87,28 +113,22 @@ function App() {
               </form>
             </div> */}
             <Container>
-              <form onSubmit={onSubmit}>
+              <form onSubmit={handleSubmit}>
                 <div className="d-flex mb-3 mt-5 align-items-center">
-                  <img
-                    src={search}
-                    alt=""
-                    onClick={() => {
-                      toggleDiv();
-                      onSubmit();
-                    }}
-                    className="search-icon"
-                  />
+                  {/* <img src={search} alt="" className="search-icon" /> */}
+                  <button type="submit" className="btn-search-icon">
+                    <img src={search} alt="" className="search-icon" />
+                  </button>
                   <input
                     type="text"
                     placeholder="Enter your question here"
-                    className="form-control"
-                    onChange={(event) => {
-                      changedata(event.target.value);
-                    }}
-                    value={data}
+                    className="img-search"
+                    value={input}
+                    onChange={handleInputChange}
                   />
                 </div>
               </form>
+
               {/* <div className="d-flex align-items-center">
                 <img src={microphone} alt="" className="microphone-icon" />
                 <input
@@ -117,11 +137,10 @@ function App() {
                   className="img-search"
                 />
               </div> */}
-              {showDiv && (
-                <div className="response-div">
-                  <p className="response-div-p">{answer}</p>
-                </div>
-              )}
+
+              <div className="response-div">
+                <p className="response-div-p">{response}</p>
+              </div>
             </Container>
           </Col>
           <Col md={6}>
